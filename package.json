@@ -10,6 +10,9 @@
     "watch-doc": "onchange 'src/**/*.ts' -- npm run doc",
     "watch-preview": "live-server doc"
   },
+  "repository": {
+    "url": "https://github.com/Alex20180512/TypeScript-Design-Patterns"
+  },
   "dependencies": {
     "concurrently": "^8.2.0",
     "typedoc": "^0.22.12"
