@@ -1,11 +1,11 @@
 {
-  "name": "ts-api-template",
+  "name": "Design Patterns",
   "version": "0.0.1",
   "scripts": {
     "dev": "concurrently 'npm:watch-*'",
     "build": "npm run test && tsc",
     "test:watch": "vitest",
-    "test": "vitest --coverage run",
+    "test": "vitest run",
     "doc": "typedoc",
     "watch-doc": "onchange 'src/**/*.ts' -- npm run doc",
     "watch-preview": "live-server doc"

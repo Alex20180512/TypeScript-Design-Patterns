@@ -1,56 +1,27 @@
 /**
- * 根据数据状态，渲染业务语义的工厂函数
- * @param initStatus 状态对象： number => 字符描述
- * @returns 字符描述 | status
- * @example
- * ```typescript
- *  const statusObject = {
- *    1: 'yes',
- *    2: 'no'
- *  } as const // 必须作为只读对象处理
- *
- *  const render = statusAdapter(statusObject);
- *
- *  render(1) // ‘yes’
- *  render(2) // ‘no’
- *  render('yes') // 1
- *  render('no') // 2
- *
- *  render('hello') // 'hello' 不存在的键值对，原样返回并反馈 warning 提示
- * ```
+ * The Singleton class defines the `getInstance` method that lets clients access
+ * the unique singleton instance.
  */
-export const statusAdapter = <T extends object>(initStatus: T) => {
-  return (status: keyof T | T[keyof T]) => {
-    const sourceKey = status as keyof T;
-    const target = initStatus[sourceKey];
+export class Singleton {
+  private static instance: Singleton;
 
-    if (target) {
-      return target;
-    } else {
-      const reverseSourceKey = status as T[keyof T];
+  /**
+   * The Singleton's constructor should always be private to prevent direct
+   * construction calls with the `new` operator.
+   */
+  private constructor() { }
 
-      for (const key in initStatus) {
-        if (initStatus[key] === reverseSourceKey) {
-          return +key;
-        }
-      }
-
-      console.warn(`match ${status} failed`);
-
-      return status;
+  /**
+   * The static method that controls the access to the singleton instance.
+   *
+   * This implementation let you subclass the Singleton class while keeping
+   * just one instance of each subclass around.
+   */
+  public static getInstance(): Singleton {
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton();
     }
-  };
-};
 
-/**
- * 是否为有效邮箱
- * @param email 邮箱
- * @returns Boolean
- */
-export const isEmail = (email: string) => {
-  const reg = new RegExp(
-    '^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$'
-  );
-
-  return reg.test(email);
-};
+    return Singleton.instance;
+  }
+}
